@@ -1,0 +1,64 @@
+
+
+{%- for block in section.blocks -%}
+  {%- if block.type == 'article' -%}
+    {%- assign articles = block.settings -%}
+    {%- for article in articles -%}
+      {%- assign image = article.image -%}
+      {%- if image -%}
+        {{ image | image_url: width: 40 | image_tag: class: 'image', loading: 'lazy' }}
+      {%- endif -%}
+      {%- if article.title -%}
+        {{ article.title }}
+      {%- endif -%}
+      {%- if article.description -%}
+        {{ article.description }}
+      {%- endif -%}
+    {%- endfor -%}
+  {%- endif -%}
+{%- endfor -%}
+
+
+{% schema %}
+  {
+  "name": "Section",
+  "class": "section",
+  "tag": "section",
+  "settings": [],
+  "blocks": [
+    {
+      "name": "Article",
+      "type": "article",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Article title",
+          "placeholder": "Article name"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "Article description",
+          "placeholder": "Article description"
+        }
+      ],
+      "repeatable": true,
+      "limit": 4
+    }
+  ],
+  "presets": [
+    {
+      "name": "Section"
+    }
+  ]
+}  
+{% endschema %}
+
